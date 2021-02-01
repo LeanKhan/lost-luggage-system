@@ -1,15 +1,17 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Person</title>
-  </head>
-  <body>
-    <h3>Welcome to Nodejs ft. Java</h3>
+<% layout('./layouts/default.eta') %>
 
+<div>
+  <h5 class="text-center">Menu</h5>
+  <p>
+    Welcome to our Lost-Luggage System.
+    You can perform thes following funcitons:
     <ul>
-      <li><a href="/person">Persons Page</a></li>
+      <li>Check-in an item of luggage onto the system</li>
+      <li>Check-out an item from the system</li>
+      <li>List the Luggages in the system</li>
+      <li>Search for a Luggage by Owner lastname</li>
+      <li>Print a report on the current state of the system</li>
+      <li>Exit the system</li>
     </ul>
-
-  </body>
-</html>
+  </p>
+</div>

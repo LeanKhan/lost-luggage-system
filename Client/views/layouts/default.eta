@@ -1,0 +1,177 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lost Luggage System 1.0</title>
+    <link rel="stylesheet" href="https://unpkg.com/chota@latest" />
+    <style>
+      body {
+        /* background-color: #2a363b; */
+        /* background-color: white; */
+        background-image: url(http://www.transparenttextures.com/patterns/subtle-carbon.png);
+        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+        background-color: #f2f3f7;
+        color: #7b7e8c;
+      }
+
+      .paper {
+        box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.1), -6px -6px 10px white;
+        border-radius: 10px;
+        background: #f2f3f7;
+        padding: 10px 20px 20px;
+        margin-top: 20px;
+        min-height: 100px;
+        font-size: 1.2em;
+        background: #f2f3f7;
+        line-height: 2em;
+        height: 100%;
+        word-wrap: break-word;
+        word-break: normal;
+        line-height: 2em;
+      }
+
+      .neumorphic {
+        box-shadow: 12px 12px 24px 0 rgba(0, 0, 0, 0.2),
+          -12px -12px 24px 0 rgba(255, 255, 255, 0.5);
+        font-size: 5rem;
+        width: 100px;
+        height: 100px;
+        border-radius: 40px;
+        overflow: hidden;
+        padding: 1.3rem;
+        display: flex;
+      }
+
+      .neumorphic--pressed {
+        box-shadow: inset 6px 6px 10px 0 rgba(0, 0, 0, 0.2),
+          inset -6px -6px 10px 0 rgba(255, 255, 255, 0.5);
+      }
+
+      .variation1 {
+        background: linear-gradient(
+          -45deg,
+          rgba(0, 0, 0, 0.2),
+          rgba(255, 255, 255, 0.3)
+        );
+      }
+
+      .variation1 span {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        overflow: hidden;
+        padding: 0.65rem;
+        box-shadow: inset 8px 8px 16px 0 rgba(0, 0, 0, 0.2),
+          inset -8px -8px 16px 0 rgba(255, 255, 255, 0.4);
+      }
+
+      .variation1 strong {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        overflow: hidden;
+        background-color: #f13c20;
+        color: white;
+      }
+
+      .variation1.pressed strong {
+        background-color: #bb3c20;
+      }
+
+      ul.menu-list {
+        list-style-type: none;
+      }
+
+      ul.menu-list > li {
+        margin-bottom: 10px;
+      }
+
+      ul.menu-list li > button {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" style="margin-top: 25px">
+      <div class="row">
+        <div class="col-3"></div>
+        <div class="col">
+          <h4 class="text-center">
+            <a class="brand is-center" style="display: inline-flex;">
+              <img
+                src="https://icongr.am/material/bag-checked.svg?size=40&color=currentColor
+            alt="
+              />
+              Lost Luggage System
+            </a>
+
+            <button
+              class="button error is-center"
+              style="float: right; display: flex"
+            >
+              <img
+                src="https://icongr.am/material/close.svg?size=24&color=ffffff"
+              />Exit
+            </button>
+          </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <ul style="list-style: none" class="menu-list">
+            <li class="is-horizontal-align">
+              <button>
+                <a href="/">Menu</a>
+              </button>
+            </li>
+            <li class="is-horizontal-align">
+              <button>
+                <a href="/luggages">Luggages</a>
+              </button>
+            </li>
+            <li class="is-horizontal-align">
+              <button>
+                <a href="/check-in-luggage">Check In Luggage</a>
+              </button>
+            </li>
+            <li class="is-horizontal-align">
+              <button>
+                <a href="/search">Search for Luggage</a>
+              </button>
+            </li>
+            <li class="is-horizontal-align">
+              <button>
+                <a href="/report">Print Sytem Report</a>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <div class="paper"><%~ it.body %></div>
+        </div>
+      </div>
+
+      <details class="paper" style="height: 20px;margin: 30px 0px;">
+        <summary class="text-center">By Group D for SEN306 Project. Read More:</summary>
+        <p>
+          Group Members:
+          <ul>
+            <li>C</li>
+            <li>Maxwell</li>
+            <li>Lloyd</li>
+            <li>Shugaba</li>
+            <li>Emamnuel Segun-Lean</li>
+          </ul>
+        </p>
+      </details>
+    </div>
+  </body>
+</html>

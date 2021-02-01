@@ -42,12 +42,31 @@ client.on("end", () => {
   console.log("disconnected from java server");
 });
 
+client.on("error", (err) => {
+  console.error("Error launching Client Server => ", err);
+});
+
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/person", (req, res) => {
+app.get("/luggages", (req, res) => {
+  res.render("luggages");
+});
 
+app.get("/check-in-luggage", (req, res) => {
+  res.render("check-in-luggage");
+});
+
+app.get("/search", (req, res) => {
+  res.render("search");
+});
+
+app.get("/report", (req, res) => {
+  res.render("report");
+});
+
+app.get("/person", (req, res) => {
   // We are sending a request to the Java server for a person...
   send(client, "GET", "person");
 
@@ -59,21 +78,20 @@ app.get("/person", (req, res) => {
 
     let parsed;
 
-    try{
+    try {
       parsed = JSON.parse(data);
     } catch (err) {
-      console.log('Could not parse response :/');
+      console.log("Could not parse response :/");
       parsed = data;
     }
 
     console.log(parsed);
 
-    res.render("person", {person: parsed});
+    res.render("person", { person: parsed });
   });
 });
 
 app.post("/person", (req, res) => {
-
   // We stringify the form data
   const p = JSON.stringify(req.body);
 
@@ -89,7 +107,7 @@ app.post("/person", (req, res) => {
     console.log(`Response from Java => ${status} ${message} ${data}`);
 
     // go back to the Person page so that we can see the just created Person.
-    res.redirect('/person');
+    res.redirect("/person");
   });
 });
 

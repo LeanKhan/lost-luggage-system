@@ -1,0 +1,6 @@
+<% layout('./layouts/default.eta') %>
+
+<div>
+  <h5 class="text-center">System State Report</h5>
+  <p>...should print system report</p>
+</div>

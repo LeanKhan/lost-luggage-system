@@ -1,0 +1,6 @@
+<% layout('./layouts/default.eta') %>
+
+<div>
+  <h5 class="text-center">Lost Luggages</h5>
+  <p>...should list luggages on the system</p>
+</div>
