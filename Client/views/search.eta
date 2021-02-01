@@ -1,0 +1,6 @@
+<% layout('./layouts/default.eta') %>
+
+<div>
+  <h5 class="text-center">Search</h5>
+  <p>...should let operator search for luggage</p>
+</div>

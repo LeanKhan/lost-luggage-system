@@ -1,0 +1,6 @@
+<% layout('./layouts/default.eta') %>
+
+<div>
+  <h5 class="text-center">Check-in Luggage</h5>
+  <p>...should let operator check in luggage</p>
+</div>
