@@ -168,4 +168,26 @@ public class App {
 
         return App.luggages.size();
     }
+
+    public String printReport() {
+
+        if (App.luggages == null || App.luggages.size() == 0) {
+            return "\n <----- No Luggages Yet ----->\n";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n |----- Lost Luggage System -----|\n");
+        sb.append("|----- Luggages  -----|\n");
+
+        for (int i = 0; i < App.luggages.size(); i++) {
+            sb.append(App.luggages.get(i).toString());
+        }
+
+        sb.append("\n ***************************** \n");
+        sb.append("|-- END OF SYSTEM STATE REPORT --|");
+        sb.append("\n ***************************** \n");
+
+        return sb.toString();
+    }
 }

@@ -76,13 +76,13 @@ public class Luggage {
 
         sb.append("Color: " + getColor() + "\n");
 
-        sb.append("Weight:" + getWeight() + "\n");
+        sb.append("Weight: " + getWeight() + "\n");
 
-        sb.append("Number of Bags:" + getBags() + "\n");
+        sb.append("Number of Bags: " + getBags() + "\n");
 
-        sb.append("Owner:" + getOwner() + "\n");
+        sb.append("Owner: " + getOwner() + "\n");
 
-        sb.append("*****************************");
+        sb.append("--------------------------");
 
         return sb.toString();
 

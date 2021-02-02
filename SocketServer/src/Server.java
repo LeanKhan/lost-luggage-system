@@ -91,6 +91,15 @@ public class Server {
                 return;
             }
 
+            if (resource.equals("report")) {
+                String report = Server.app.printReport();
+
+                log(report);
+
+                send(writer, "SUCCESS", "Report Fetched Successfully!", report);
+                return;
+            }
+
             send(writer, "ERROR", "Unknown function!", "-");
             return;
         } else if (method.equals("POST")) {

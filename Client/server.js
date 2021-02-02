@@ -139,7 +139,23 @@ app.post("/search", (req, res) => {
 });
 
 app.get("/report", (req, res) => {
-  res.render("report");
+  send(client, "GET", "report");
+
+  client.once("data", (response) => {
+    const p = response.toString().replace("\r\n", "");
+
+    // shorthand for const status = Array[0]...
+    const [status, message, data] = p.split(" | ");
+
+    if (req.query.popout) {
+      res.send(`<div style="max-width: 100%">
+      <p style="white-space: pre-line">${data}</p>
+    </div>`);
+      return res.end;
+    }
+
+    return res.render("report", { report: data });
+  });
 });
 
 app.get("/person", (req, res) => {
