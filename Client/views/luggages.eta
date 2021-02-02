@@ -1,6 +1,45 @@
-<% layout('./layouts/default.eta') %>
+<% layout('./layouts/default.eta') %> <% if (typeof response != 'undefined') {
+%>
+<span> <%= response.status %> => <%= response.message %> </span>
+<% } %>
 
 <div>
   <h5 class="text-center">Lost Luggages</h5>
-  <p>...should list luggages on the system</p>
+  <% if (typeof data != 'undefined') { %> <% if (data.luggages &&
+  data.luggages.length > 0 && data.count) { %>
+  <p>Luggages count: <%= data.count %></p>
+
+  <form>
+    <table id="table">
+      <tr>
+        <th>Color</th>
+        <th>Weight</th>
+        <th>Owner</th>
+        <th>Actions</th>
+      </tr>
+      <% data.luggages.forEach(luggage => { %>
+      <tr>
+        <td><%= luggage.color %></td>
+        <td><%= luggage.weight %></td>
+        <td><%= luggage.ownerfirstname %> <%= luggage.ownerlastname %></td>
+        <td>
+          <label>
+            <input
+              type="checkbox"
+              name="luggage_id"
+              value="<%= luggage.id || 0 %>"
+              onchange="this.form.action='/checkout-luggage';this.form.method='post';this.form.submit()"
+            />
+          </label>
+        </td>
+      </tr>
+      <% }); %>
+    </table>
+  </form>
+
+  <% } else { %>
+  <p>No Luggages in system yet</p>
+  <% } %> <% } else { %>
+  <p>Could not load Luggages</p>
+  <% } %>
 </div>

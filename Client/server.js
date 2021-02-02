@@ -51,11 +51,57 @@ app.get("/", (req, res) => {
 });
 
 app.get("/luggages", (req, res) => {
-  res.render("luggages");
+  send(client, "GET", "luggages");
+
+  client.once("data", (response) => {
+    const ls = response.toString().replace("\r\n", "");
+
+    // shorthand for const status = Array[0]...
+    const [status, message, data] = ls.split(" | ");
+
+    let parsed;
+
+    try {
+      parsed = JSON.parse(data);
+    } catch (err) {
+      console.log("Could not parse response :/");
+      parsed = data;
+    }
+
+    console.log(parsed);
+
+    res.render("luggages", { data: parsed });
+  });
 });
 
 app.get("/check-in-luggage", (req, res) => {
   res.render("check-in-luggage");
+});
+
+app.post("/checkout-luggage", (req, res) => {
+  console.log(req.body);
+
+  send(client, "POST", "checkout-luggage", req.body.luggage_id);
+
+  client.once("data", (response) => {
+    const p = response.toString().replace("\r\n", "");
+
+    // shorthand for const status = Array[0]...
+    const [status, message, data] = p.split(" | ");
+
+    let parsed;
+
+    try {
+      parsed = JSON.parse(data);
+    } catch (err) {
+      console.log("Could not parse response :/");
+      parsed = data;
+    }
+
+    console.log(parsed);
+
+    res.render("index");
+  });
 });
 
 app.get("/search", (req, res) => {
@@ -108,6 +154,26 @@ app.post("/person", (req, res) => {
 
     // go back to the Person page so that we can see the just created Person.
     res.redirect("/person");
+  });
+});
+
+app.post("/luggage", (req, res) => {
+  // We stringify the form data
+  const l = JSON.stringify(req.body);
+
+  // We are sending a sending a POST request to the Java server.Java
+  // to create a new Person Object.
+  send(client, "POST", "luggage", l);
+
+  client.once("data", (response) => {
+    const p = response.toString().replace("\r\n", "");
+
+    const [status, message, data] = p.split(" | ");
+
+    console.log(`Response from Java => ${status} ${message} ${data}`);
+
+    // go back to the Person page so that we can see the just created Person.
+    res.redirect("luggages");
   });
 });
 
