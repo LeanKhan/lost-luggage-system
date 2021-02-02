@@ -82,6 +82,15 @@ public class Server {
                 return;
             }
 
+            if (resource.equals("luggages")) {
+                String ls = Server.app.getLuggages();
+                int count = Server.app.luggagesCount();
+
+                send(writer, "SUCCESS", "Luggages fetched sucessffully!",
+                        "{ \"luggages\" :" + ls + ", \"count\" :" + count + "}");
+                return;
+            }
+
             send(writer, "ERROR", "Unknown function!", "-");
             return;
         } else if (method.equals("POST")) {
@@ -92,13 +101,31 @@ public class Server {
                 return;
             }
 
+            if (resource.equals("luggage")) {
+                log(query);
+                Boolean res = Server.app.addLuggage(query);
+                send(writer, "SUCCESS", "Luggage created sucessffully!", res.toString());
+                return;
+            }
+
             // TODO: you can add more methods!
             // for example...
-            // if (resource.equals("delete-person")) {
-            // String p = Server.app.getPersonJSON();
-            // writer.println("RES | " + p);
-            // return;
-            // }
+            if (resource.equals("checkout-luggage")) {
+                log(query);
+
+                int luggageId;
+                Boolean res = false;
+                try {
+                    luggageId = Integer.parseInt(query);
+                    log("Id => " + luggageId);
+                    res = Server.app.checkoutLuggage(luggageId);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+
+                writer.println("SUCCESS | " + "Luggage Checked Out successfully!" + res);
+                return;
+            }
 
             send(writer, "ERROR", "Unknown function!", "-");
             return;

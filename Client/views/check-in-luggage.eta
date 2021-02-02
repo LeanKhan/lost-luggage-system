@@ -12,12 +12,16 @@
     <input type="number" min="1" max="23" name="weight" />
     <br />
 
-    <label for="ownerfirstname"> Owner Firstname </label>
-    <input type="text" name="ownerfirstname" />
+    <label for="bags"> Number of Bags </label>
+    <input type="number" min="1" max="5" name="bags" />
     <br />
 
-    <label for="ownerlastname"> Owner Lastname </label>
-    <input type="text" name="ownerlastname" />
+    <label for="owner[firstname]"> Owner Firstname </label>
+    <input type="text" name="owner[firstname]" />
+    <br />
+
+    <label for="owner[lastname]"> Owner Lastname </label>
+    <input type="text" name="owner[lastname]" />
     <br />
 
     <input type="submit" value="submit" />

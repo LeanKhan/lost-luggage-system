@@ -13,6 +13,7 @@
     <table id="table">
       <tr>
         <th>Color</th>
+        <th>No. of Bags</th>
         <th>Weight</th>
         <th>Owner</th>
         <th>Actions</th>
@@ -20,17 +21,21 @@
       <% data.luggages.forEach(luggage => { %>
       <tr>
         <td><%= luggage.color %></td>
+        <td><%= luggage.bags %></td>
         <td><%= luggage.weight %></td>
-        <td><%= luggage.ownerfirstname %> <%= luggage.ownerlastname %></td>
+        <td><%= luggage.owner.firstname %> <%= luggage.owner.lastname %></td>
         <td>
-          <label>
-            <input
-              type="checkbox"
-              name="luggage_id"
-              value="<%= luggage.id || 0 %>"
-              onchange="this.form.action='/checkout-luggage';this.form.method='post';this.form.submit()"
-            />
-          </label>
+          <div id="table-action-button">
+            <label>
+              <input
+                type="checkbox"
+                name="luggage_id"
+                value="<%= luggage.id || 0 %>"
+                onchange="this.form.action='/checkout-luggage';this.form.method='post';this.form.submit()"
+              />
+              <span>Check out</span>
+            </label>
+          </div>
         </td>
       </tr>
       <% }); %>

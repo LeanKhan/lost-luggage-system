@@ -78,6 +78,10 @@ app.get("/check-in-luggage", (req, res) => {
   res.render("check-in-luggage");
 });
 
+app.post("/poster", (req, res) => {
+  return res.status(200).send(req.body);
+});
+
 app.post("/checkout-luggage", (req, res) => {
   console.log(req.body);
 
