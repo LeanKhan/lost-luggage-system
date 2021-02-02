@@ -104,12 +104,38 @@ app.post("/checkout-luggage", (req, res) => {
 
     console.log(parsed);
 
-    res.render("index");
+    res.redirect("/luggages");
   });
 });
 
 app.get("/search", (req, res) => {
   res.render("search");
+});
+
+app.post("/search", (req, res) => {
+  send(client, "POST", "search-luggages", req.body.query);
+
+  client.once("data", (response) => {
+    const p = response.toString().replace("\r\n", "");
+
+    // shorthand for const status = Array[0]...
+    const [status, message, data] = p.split(" | ");
+
+    console.log(`Response from Java => ${status} ${message}`);
+
+    let parsed;
+
+    try {
+      parsed = JSON.parse(data);
+    } catch (err) {
+      console.log("Could not parse response :/");
+      parsed = data;
+    }
+
+    console.log(parsed);
+
+    res.render("search", { data: { luggage: parsed } });
+  });
 });
 
 app.get("/report", (req, res) => {

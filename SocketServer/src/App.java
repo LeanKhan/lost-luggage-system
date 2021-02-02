@@ -13,6 +13,34 @@ public class App {
         return App.person;
     }
 
+    public String getLuggageJSON(int index) {
+        ObjectMapper mapper = new ObjectMapper();
+        if (App.luggages == null || App.luggages.size() == 0) {
+            System.out.println("Luggages List is empty!");
+
+            throw new NullPointerException("There are no checked-in Luggages!");
+        }
+
+        if (index > App.luggages.size()) {
+            System.out.println("Luggage does not exist!");
+
+            throw new ArrayIndexOutOfBoundsException("Luggage does not exist!");
+        }
+
+        Luggage foundLuggage = App.luggages.get(index);
+
+        try {
+            String json = mapper.writeValueAsString(foundLuggage);
+
+            return json;
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            return "{}";
+        }
+    }
+
     public void createPerson(String personJSON) {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -113,6 +141,23 @@ public class App {
             e.printStackTrace();
             return "[]";
         }
+    }
+
+    public int searchLuggages(String ownerlastname) {
+
+        int index = -1;
+        ownerlastname = ownerlastname.toLowerCase();
+        // using classical for loop
+        for (int i = 0; i < App.luggages.size(); i++) {
+            Boolean found = App.luggages.get(i).getOwner().getLastname().toLowerCase().equals(ownerlastname);
+
+            if (found) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
     }
 
     public int luggagesCount() {

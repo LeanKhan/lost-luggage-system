@@ -127,6 +127,24 @@ public class Server {
                 return;
             }
 
+            if (resource.equals("search-luggages")) {
+                log(query);
+
+                int luggageIndex;
+                String luggage;
+                try {
+                    luggageIndex = Server.app.searchLuggages(query);
+                    luggage = Server.app.getLuggageJSON(luggageIndex);
+
+                    send(writer, "SUCCESS", "Luggage searched successfully!", luggage);
+                    return;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    send(writer, "ERROR", "Luggage not found!", "{}");
+                    return;
+                }
+            }
+
             send(writer, "ERROR", "Unknown function!", "-");
             return;
         } else {
