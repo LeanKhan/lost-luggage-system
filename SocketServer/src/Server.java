@@ -6,7 +6,6 @@ public class Server {
 
     public static final int port = 12345;
     private ServerSocket server;
-    private static App app;
 
     public static void log(String message) {
         System.out.println(message);
@@ -19,8 +18,6 @@ public class Server {
     public void listen() {
         try {
             server = new ServerSocket(5555);
-            Server.app = new App();
-            Server.app.loadData();
         } catch (IOException e) {
             System.out.println("Could not listen on port 5555 =>" + e);
             System.exit(-1);
@@ -76,83 +73,33 @@ public class Server {
                 return;
             }
 
-            if (resource.equals("person")) {
-                String p = Server.app.getPersonJSON();
-
-                send(writer, "SUCCESS", "Person fetched sucessffully!", p);
-                return;
-            }
-
             if (resource.equals("luggages")) {
-                String ls = Server.app.getLuggages();
-                int count = Server.app.luggagesCount();
 
-                send(writer, "SUCCESS", "Luggages fetched sucessffully!",
-                        "{ \"luggages\" :" + ls + ", \"count\" :" + count + "}");
-                return;
-            }
+                // The Client expects data in this format "{ \"luggages\" :" + ls + ", \"count\"
+                // :" + count + "}"
 
-            if (resource.equals("report")) {
-                String report = Server.app.printReport();
-
-                log(report);
-
-                send(writer, "SUCCESS", "Report Fetched Successfully!", report);
+                send(writer, "SUCCESS", "Luggages fetched sucessffully!", "THERE SHOULD BE DATA HERE");
                 return;
             }
 
             send(writer, "ERROR", "Unknown function!", "-");
             return;
         } else if (method.equals("POST")) {
-            if (resource.equals("person")) {
-                log(query);
-                Server.app.createPerson(query);
-                send(writer, "SUCCESS", "Person created sucessffully!", "-");
-                return;
-            }
 
             if (resource.equals("luggage")) {
                 log(query);
-                Boolean res = Server.app.addLuggage(query);
-                send(writer, "SUCCESS", "Luggage created sucessffully!", res.toString());
+                send(writer, "SUCCESS", "Luggage created sucessffully!", "THERE SHOULD BE DATA HERE");
                 return;
             }
 
             // TODO: you can add more methods!
             // for example...
             if (resource.equals("checkout-luggage")) {
-                log(query);
-
-                int luggageId;
-                Boolean res = false;
-                try {
-                    luggageId = Integer.parseInt(query);
-                    log("Id => " + luggageId);
-                    res = Server.app.checkoutLuggage(luggageId);
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-
-                writer.println("SUCCESS | " + "Luggage Checked Out successfully!" + res);
-                return;
+                // TODO: do something...
             }
 
             if (resource.equals("search-luggages")) {
-                log(query);
-
-                int luggageIndex;
-                String luggage;
-                try {
-                    luggageIndex = Server.app.searchLuggages(query);
-                    luggage = Server.app.getLuggageJSON(luggageIndex);
-
-                    send(writer, "SUCCESS", "Luggage searched successfully!", luggage);
-                    return;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    send(writer, "ERROR", "Luggage not found!", "{}");
-                    return;
-                }
+                // TODO: do something...
             }
 
             send(writer, "ERROR", "Unknown function!", "-");
