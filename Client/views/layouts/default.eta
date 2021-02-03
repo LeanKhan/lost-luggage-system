@@ -96,6 +96,65 @@
       ul.menu-list li > button {
         width: 100%;
       }
+
+      #table {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      #table td,
+      #table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+
+      #table tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      #table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4caf50;
+        color: white;
+      }
+
+      #table-action-button {
+        margin: 4px;
+        background-color: #efefef;
+        border-radius: 4px;
+        border: 1px solid #d0d0d0;
+        overflow: auto;
+        float: left;
+      }
+
+      #table-action-button:hover {
+        background: rgba(255, 0, 0, 0.774);
+      }
+
+      #table-action-button label {
+        float: left;
+        width: auto;
+        cursor: pointer;
+      }
+
+      #table-action-button label span {
+        text-align: center;
+        padding: 3px 2px;
+        display: block;
+      }
+
+      #table-action-button label input {
+        position: absolute;
+        top: -20px;
+      }
+
+      #table-action-button input:checked + span {
+        background-color: #911;
+        color: #fff;
+      }
     </style>
   </head>
   <body>
@@ -104,7 +163,7 @@
         <div class="col-3"></div>
         <div class="col">
           <h4 class="text-center">
-            <a class="brand is-center" style="display: inline-flex;">
+            <a class="brand is-center" style="display: inline-flex">
               <img
                 src="https://icongr.am/material/bag-checked.svg?size=40&color=currentColor
             alt="
@@ -159,18 +218,19 @@
         </div>
       </div>
 
-      <details class="paper" style="height: 20px;margin: 30px 0px;">
-        <summary class="text-center">By Group D for SEN306 Project. Read More:</summary>
-        <p>
-          Group Members:
-          <ul>
-            <li>C</li>
-            <li>Maxwell</li>
-            <li>Lloyd</li>
-            <li>Shugaba</li>
-            <li>Emamnuel Segun-Lean</li>
-          </ul>
-        </p>
+      <details class="paper" style="height: 20px; margin: 30px 0px">
+        <summary class="text-center">
+          By Group D for SEN306 Project. Read More:
+        </summary>
+        <br />
+        <p>Group Members:</p>
+        <ul>
+          <li>C</li>
+          <li>Maxwell</li>
+          <li>Lloyd</li>
+          <li>Shugaba</li>
+          <li>Emamnuel Segun-Lean</li>
+        </ul>
       </details>
     </div>
   </body>

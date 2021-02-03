@@ -2,5 +2,21 @@
 
 <div>
   <h5 class="text-center">System State Report</h5>
-  <p>...should print system report</p>
+  <% if (typeof report != 'undefined') { %>
+  <div>
+    <span style="float: right">
+      <a
+        href="/report?popout=true"
+        target="_blank"
+        class="text-light"
+        style="font-size: small; text-decoration: underline"
+        >View in another window
+        <img src="https://icongr.am/clarity/pop-out.svg?size=16&color=14854f"
+      /></a>
+    </span>
+  </div>
+  <div class="bg-dark bd-primary text-light card" style="max-width: 100%">
+    <p style="white-space: pre-line"><%= report %></p>
+  </div>
+  <% } %>
 </div>

@@ -2,5 +2,28 @@
 
 <div>
   <h5 class="text-center">Check-in Luggage</h5>
-  <p>...should let operator check in luggage</p>
+
+  <form action="/luggage" method="POST">
+    <label for="color"> Color </label>
+    <input type="text" name="color" />
+    <br />
+
+    <label for="weight"> Weight (Kg) </label>
+    <input type="number" min="1" max="23" name="weight" />
+    <br />
+
+    <label for="bags"> Number of Bags </label>
+    <input type="number" min="1" max="5" name="bags" />
+    <br />
+
+    <label for="owner[firstname]"> Owner Firstname </label>
+    <input type="text" name="owner[firstname]" />
+    <br />
+
+    <label for="owner[lastname]"> Owner Lastname </label>
+    <input type="text" name="owner[lastname]" />
+    <br />
+
+    <input type="submit" value="submit" />
+  </form>
 </div>

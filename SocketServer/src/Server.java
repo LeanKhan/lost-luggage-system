@@ -6,7 +6,6 @@ public class Server {
 
     public static final int port = 12345;
     private ServerSocket server;
-    private static App app;
 
     public static void log(String message) {
         System.out.println(message);
@@ -19,7 +18,6 @@ public class Server {
     public void listen() {
         try {
             server = new ServerSocket(5555);
-            Server.app = new App();
         } catch (IOException e) {
             System.out.println("Could not listen on port 5555 =>" + e);
             System.exit(-1);
@@ -75,30 +73,34 @@ public class Server {
                 return;
             }
 
-            if (resource.equals("person")) {
-                String p = Server.app.getPersonJSON();
+            if (resource.equals("luggages")) {
 
-                send(writer, "SUCCESS", "Person fetched sucessffully!", p);
+                // The Client expects data in this format "{ \"luggages\" :" + ls + ", \"count\"
+                // :" + count + "}"
+
+                send(writer, "SUCCESS", "Luggages fetched sucessffully!", "THERE SHOULD BE DATA HERE");
                 return;
             }
 
             send(writer, "ERROR", "Unknown function!", "-");
             return;
         } else if (method.equals("POST")) {
-            if (resource.equals("person")) {
+
+            if (resource.equals("luggage")) {
                 log(query);
-                Server.app.createPerson(query);
-                send(writer, "SUCCESS", "Person created sucessffully!", "-");
+                send(writer, "SUCCESS", "Luggage created sucessffully!", "THERE SHOULD BE DATA HERE");
                 return;
             }
 
             // TODO: you can add more methods!
             // for example...
-            // if (resource.equals("delete-person")) {
-            // String p = Server.app.getPersonJSON();
-            // writer.println("RES | " + p);
-            // return;
-            // }
+            if (resource.equals("checkout-luggage")) {
+                // TODO: do something...
+            }
+
+            if (resource.equals("search-luggages")) {
+                // TODO: do something...
+            }
 
             send(writer, "ERROR", "Unknown function!", "-");
             return;
