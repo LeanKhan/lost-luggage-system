@@ -1,14 +1,1 @@
-[
-  {
-    "firstname": "Emmanuel",
-    "lastname": "Segun-Lean"
-  },
-  {
-    "firstname": "Bolu",
-    "lastname": "Fish"
-  },
-  {
-    "firstname": "Mary",
-    "lastname": "Poppins"
-  }
-]
+[{"id":1,"color":"Coffee Brown","weight":"6","bags":3,"owner":{"firstname":"Emmanuel","lastname":"Segun-Lean"}},{"id":2,"color":"Red","weight":"20","bags":4,"owner":{"firstname":"Esther","lastname":"Kelechi"}},{"id":3,"color":"Yellow","weight":"12","bags":2,"owner":{"firstname":"Frank","lastname":"Beans"}},{"id":4,"color":"Grey","weight":"22","bags":5,"owner":{"firstname":"Pro","lastname":"Fawnda"}}]

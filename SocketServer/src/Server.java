@@ -4,9 +4,8 @@ import java.net.Socket;
 
 public class Server {
 
-    public static final int port = 12345;
     private ServerSocket server;
-    private static App app;
+    private static LuggageSystem luggageSystem;
 
     public static void log(String message) {
         System.out.println(message);
@@ -19,8 +18,10 @@ public class Server {
     public void listen() {
         try {
             server = new ServerSocket(5555);
-            Server.app = new App();
-            Server.app.loadData();
+
+            Server.luggageSystem = LuggageSystem.getLuggageSystem();
+
+            Server.luggageSystem.loadData();
         } catch (IOException e) {
             System.out.println("Could not listen on port 5555 =>" + e);
             System.exit(-1);
@@ -50,6 +51,7 @@ public class Server {
                 }
 
             } catch (IOException e) {
+                LuggageSystem.getLuggageSystem().saveJsonData();
                 System.out.println("Accept failed: 5555");
                 System.exit(-1);
             }
@@ -76,16 +78,9 @@ public class Server {
                 return;
             }
 
-            if (resource.equals("person")) {
-                String p = Server.app.getPersonJSON();
-
-                send(writer, "SUCCESS", "Person fetched sucessffully!", p);
-                return;
-            }
-
             if (resource.equals("luggages")) {
-                String ls = Server.app.getLuggages();
-                int count = Server.app.luggagesCount();
+                String ls = Server.luggageSystem.getLuggages();
+                int count = Server.luggageSystem.luggagesCount();
 
                 send(writer, "SUCCESS", "Luggages fetched sucessffully!",
                         "{ \"luggages\" :" + ls + ", \"count\" :" + count + "}");
@@ -93,7 +88,7 @@ public class Server {
             }
 
             if (resource.equals("report")) {
-                String report = Server.app.printReport();
+                String report = Server.luggageSystem.printReport();
 
                 log(report);
 
@@ -104,16 +99,9 @@ public class Server {
             send(writer, "ERROR", "Unknown function!", "-");
             return;
         } else if (method.equals("POST")) {
-            if (resource.equals("person")) {
-                log(query);
-                Server.app.createPerson(query);
-                send(writer, "SUCCESS", "Person created sucessffully!", "-");
-                return;
-            }
-
             if (resource.equals("luggage")) {
                 log(query);
-                Boolean res = Server.app.addLuggage(query);
+                Boolean res = Server.luggageSystem.addLuggage(query);
                 send(writer, "SUCCESS", "Luggage created sucessffully!", res.toString());
                 return;
             }
@@ -128,7 +116,7 @@ public class Server {
                 try {
                     luggageId = Integer.parseInt(query);
                     log("Id => " + luggageId);
-                    res = Server.app.checkoutLuggage(luggageId);
+                    res = Server.luggageSystem.checkoutLuggage(luggageId);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
@@ -143,8 +131,8 @@ public class Server {
                 int luggageIndex;
                 String luggage;
                 try {
-                    luggageIndex = Server.app.searchLuggages(query);
-                    luggage = Server.app.getLuggageJSON(luggageIndex);
+                    luggageIndex = Server.luggageSystem.searchLuggages(query);
+                    luggage = Server.luggageSystem.getLuggageJSON(luggageIndex);
 
                     send(writer, "SUCCESS", "Luggage searched successfully!", luggage);
                     return;
