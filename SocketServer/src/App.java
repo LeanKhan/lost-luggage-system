@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class App {
@@ -7,10 +10,55 @@ public class App {
     private static ArrayList<Luggage> luggages = new ArrayList<Luggage>();
 
     public App() {
+        this.loadData();
     };
 
     public Person getPerson() {
         return App.person;
+    }
+
+    public void loadData() {
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            File dataStore = new File("data.json");
+            if (dataStore.createNewFile()) {
+
+                System.out.println("File created successfully!");
+
+                System.out.println("File name: " + dataStore.getName());
+                System.out.println("Absolute path: " + dataStore.getAbsolutePath());
+                System.out.println("Writeable: " + dataStore.canWrite());
+                System.out.println("Readable " + dataStore.canRead());
+                System.out.println("File size in bytes " + dataStore.length());
+
+                ArrayList<Owner> lg = mapper.readValue(dataStore, new TypeReference<ArrayList<Owner>>() {
+                });
+
+                System.out.println(lg.size());
+
+                lg.forEach(x -> System.out.println(x.getFirstname() + x.getLastname()));
+            } else {
+                System.out.println("File already exists.");
+
+                System.out.println("File name: " + dataStore.getName());
+                System.out.println("Absolute path: " + dataStore.getAbsolutePath());
+                System.out.println("Writeable: " + dataStore.canWrite());
+                System.out.println("Readable " + dataStore.canRead());
+                System.out.println("File size in bytes " + dataStore.length());
+
+                ArrayList<Owner> lg = mapper.readValue(dataStore, new TypeReference<ArrayList<Owner>>() {
+                });
+
+                System.out.println(lg.size());
+
+                lg.forEach(x -> System.out.println(x.getFirstname() + x.getLastname()));
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     public String getLuggageJSON(int index) {
@@ -35,7 +83,6 @@ public class App {
             return json;
 
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
             return "{}";
         }

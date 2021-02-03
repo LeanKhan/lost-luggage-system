@@ -20,6 +20,7 @@ public class Server {
         try {
             server = new ServerSocket(5555);
             Server.app = new App();
+            Server.app.loadData();
         } catch (IOException e) {
             System.out.println("Could not listen on port 5555 =>" + e);
             System.exit(-1);
