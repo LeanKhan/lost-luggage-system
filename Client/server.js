@@ -25,6 +25,8 @@ function send(client, method, message, data = "-") {
   client.write(createRequest(method, message, data));
 }
 
+const PORT = process.env.PORT || 3000;
+
 const client = net.connect({ port: 5555 }, () => {
   //NOTE: use same port of server!
   console.log("connected to server!");
@@ -223,6 +225,6 @@ app.post("/luggage", (req, res) => {
   });
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Node Server-Client started!");
+app.listen(PORT, () => {
+  console.log("Node Server-Client started! Listening on Port => ", PORT);
 });
