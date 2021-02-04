@@ -7,7 +7,9 @@
   <form method="POST" action="/search">
     <input type="text" name="query" placeholder="Owner's surname" />
     <br />
-    <button class="button" type="submit">Search</button>
+    <button style="font-size: medium" class="blue-button" type="submit">
+      Search
+    </button>
   </form>
 
   <% if (typeof data != 'undefined') { %> <% if (typeof data.luggage !=
