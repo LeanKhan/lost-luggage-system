@@ -1,11 +1,9 @@
 public class Luggage {
     private int id;
-    private String color;
+    private String flight;
     private String weight;
     private int bags;
     private Owner owner;
-    // private String ownerfirstname;
-    // private String ownerlastname;
 
     Luggage() {
     }
@@ -18,12 +16,12 @@ public class Luggage {
         return id;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setFlight(String flight) {
+        this.flight = flight;
     }
 
-    public String getColor() {
-        return color;
+    public String getFlight() {
+        return flight;
     }
 
     public void setWeight(String weight) {
@@ -50,22 +48,6 @@ public class Luggage {
         return owner;
     }
 
-    // public void setOwnerfirstname(String ownerfirstname) {
-    // this.ownerfirstname = ownerfirstname;
-    // }
-
-    // public String getOwnerfirstname() {
-    // return ownerfirstname;
-    // }
-
-    // public void setOwnerlastname(String ownerlastname) {
-    // this.ownerlastname = ownerlastname;
-    // }
-
-    // public String getOwnerlastname() {
-    // return ownerlastname;
-    // }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -74,7 +56,7 @@ public class Luggage {
 
         sb.append("ID: " + getId() + "\n");
 
-        sb.append("Color: " + getColor() + "\n");
+        sb.append("Flight Code: " + getFlight() + "\n");
 
         sb.append("Weight: " + getWeight() + "\n");
 

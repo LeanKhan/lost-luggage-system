@@ -1,3 +1,11 @@
+/***
+ * SEN306 Group  7 Project. February 4th 2021
+ * - Emmanuel Segun-Lean
+ * - Shugaba Wuta
+ * - Lloyd Ochu
+ * - Maxwell Ogalabu
+ * - Judith
+ */
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -73,8 +81,8 @@ public class Server {
         log(query);
 
         if (method.equals("GET")) {
-            if (resource.equals("message")) {
-                send(writer, "SUCCESS", "message recieved :)", "-");
+            if (resource.equals("say-hello")) {
+                send(writer, "SUCCESS", "i see you! :)", "-");
                 return;
             }
 

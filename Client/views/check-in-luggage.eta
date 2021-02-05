@@ -2,26 +2,44 @@
 
 <div>
   <h5 class="text-center">Check-in Luggage</h5>
-
+  <p>
+    <small class="text-gray text-grey text-center"
+      >All fields are required</small
+    >
+  </p>
   <form action="/luggage" method="POST">
-    <label for="color"> Color </label>
-    <input type="text" name="color" />
+    <label for="flight"> Flight Code </label>
+    <input type="text" name="flight" required />
     <br />
 
     <label for="weight"> Weight (Kg) </label>
-    <input type="number" min="1" max="23" name="weight" />
+    <input
+      type="number"
+      min="1"
+      max="23"
+      name="weight"
+      placeholder="1 to 23Kg"
+      required
+    />
     <br />
 
     <label for="bags"> Number of Bags </label>
-    <input type="number" min="1" max="5" name="bags" />
+    <input
+      type="number"
+      min="1"
+      max="8"
+      name="bags"
+      placeholder="1 to 8 Bags"
+      required
+    />
     <br />
 
     <label for="owner[firstname]"> Owner Firstname </label>
-    <input type="text" name="owner[firstname]" />
+    <input type="text" name="owner[firstname]" required />
     <br />
 
     <label for="owner[lastname]"> Owner Lastname </label>
-    <input type="text" name="owner[lastname]" />
+    <input type="text" name="owner[lastname]" required />
     <br />
 
     <input

@@ -12,7 +12,7 @@
   <form>
     <table id="table">
       <tr>
-        <th>Color</th>
+        <th>Flight Code</th>
         <th>No. of Bags</th>
         <th>Weight</th>
         <th>Owner</th>
@@ -20,7 +20,7 @@
       </tr>
       <% data.luggages.forEach((luggage, i) => { %>
       <tr>
-        <td><%= luggage.color %></td>
+        <td><%= luggage.flight %></td>
         <td><%= luggage.bags %></td>
         <td><%= luggage.weight %></td>
         <td><%= luggage.owner.firstname %> <%= luggage.owner.lastname %></td>

@@ -138,6 +138,12 @@ public class LuggageSystem {
             throw new ArrayIndexOutOfBoundsException("Luggage does not exist!");
         }
 
+        if (index < 0) {
+            System.out.println("Luggage does not exist!");
+
+            throw new ArrayIndexOutOfBoundsException("Luggage does not exist!");
+        }
+
         Luggage foundLuggage = LuggageSystem.luggages.get(index);
 
         try {

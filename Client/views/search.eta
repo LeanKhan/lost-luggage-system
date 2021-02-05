@@ -19,14 +19,14 @@
   <form>
     <table id="table">
       <tr>
-        <th>Color</th>
+        <th>Flight Code</th>
         <th>No. of Bags</th>
         <th>Weight</th>
         <th>Owner</th>
         <th>Actions</th>
       </tr>
       <tr>
-        <td><%= data.luggage.color %></td>
+        <td><%= data.luggage.flight %></td>
         <td><%= data.luggage.bags %></td>
         <td><%= data.luggage.weight %></td>
         <td>
