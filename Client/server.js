@@ -12,6 +12,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const {open} = require("out-url");
 
 const app = express();
 const eta = require("eta");
@@ -34,7 +35,7 @@ app.engine("eta", eta.renderFile);
 
 app.set("view engine", "eta");
 
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 
 function createRequest(method, message, data) {
   return `${method} | ${message} | ${data}\n`;
@@ -231,11 +232,13 @@ app.get("*", (req, res) => {
 });
 
 app.use((error, req, res, next) => {
+  console.log(error);
   return res
     .status(400)
-    .send("Omo! There was an unknown error. Go back <a href='/'>home</a>");
+    .send("Omo! There was an unknown error. Go back <a href='/'>home</a> \n <br/>" + error.getMessage());
 });
 
 app.listen(PORT, () => {
   console.log("Node Server-Client started! Listening on Port => ", PORT);
+  open(`http://localhost:${PORT}`);
 });

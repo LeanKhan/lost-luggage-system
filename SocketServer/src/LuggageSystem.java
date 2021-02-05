@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -11,9 +13,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class LuggageSystem {
     private static ArrayList<Luggage> luggages = new ArrayList<Luggage>();
     private static LuggageSystem instance;
+    private static String dir; // current directory...
 
     private LuggageSystem() {
-
+        Path currentDir = Paths.get("");
+        LuggageSystem.dir = currentDir.toAbsolutePath().toString();
     };
 
     public static LuggageSystem getLuggageSystem() {
@@ -26,15 +30,14 @@ public class LuggageSystem {
         return instance;
     }
 
-    /**
-     * Loads the JSON data in the data file and put it in the Luggages ArrayList.
-     */
     public void loadData() {
+        // the JSON data in the data file and put it in the Luggage
 
         try {
             ObjectMapper mapper = new ObjectMapper();
 
-            File dataStore = new File("data/luggages.json");
+            File dataStore = new File(LuggageSystem.dir + "/data/luggages.json");
+
             if (dataStore.exists()) {
 
                 System.out.println("File exists!");
@@ -53,9 +56,7 @@ public class LuggageSystem {
                 System.out.println(lg.size());
 
             }
-        } catch (
-
-        IOException e) {
+        } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
@@ -70,8 +71,8 @@ public class LuggageSystem {
 
             ObjectMapper mapper = new ObjectMapper();
 
-            File dataStore = new File("data/luggages.json");
-            FileWriter dataStoreWriter = new FileWriter("data/luggages.json");
+            File dataStore = new File(LuggageSystem.dir + "/data/luggages.json");
+            FileWriter dataStoreWriter = new FileWriter(LuggageSystem.dir + "/data/luggages.json");
 
             if (dataStore.createNewFile()) {
                 System.out.println("File created successfully!");
