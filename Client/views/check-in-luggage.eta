@@ -2,12 +2,14 @@
 
 <div>
   <h5 class="text-center">Check-in Luggage</h5>
-  <p>
-    <small class="text-gray text-grey text-center"
-      >All fields are required</small
-    >
+  <p class="text-error text-center">
+    <small>All fields are required</small>
   </p>
-  <form action="/luggage" method="POST">
+  <form
+    action="/luggage"
+    method="POST"
+    onsubmit="submitButton.disabled = true; return true;"
+  >
     <label for="flight"> Flight Code </label>
     <input type="text" name="flight" required />
     <br />
@@ -44,7 +46,8 @@
 
     <input
       type="submit"
-      value="submit"
+      value="Submit"
+      name="submitButton"
       style="font-size: medium"
       class="blue-button"
     />

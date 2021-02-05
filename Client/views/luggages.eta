@@ -9,7 +9,7 @@
   data.luggages.length > 0 && data.count) { %>
   <p>Luggages count: <%= data.count %></p>
 
-  <form>
+  <form onsubmit="luggage_id.disabled = true; return true;">
     <table id="table">
       <tr>
         <th>Flight Code</th>
@@ -30,7 +30,7 @@
               <input
                 type="checkbox"
                 name="luggage_id"
-                value="<%=++i%>"
+                value="<%=luggage.id%>"
                 onchange="this.form.action='/checkout-luggage';this.form.method='post';this.form.submit()"
               />
               <span

@@ -143,6 +143,10 @@ app.get("/search", (req, res) => {
 app.post("/search", (req, res) => {
   res.locals.route = "search";
 
+  if (!req.body.query) {
+    return res.redirect("/search");
+  }
+
   send(client, "POST", "search-luggages", req.body.query);
 
   client.once("data", (response) => {
