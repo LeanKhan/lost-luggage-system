@@ -102,7 +102,8 @@ li button a {
   color: white !important;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   height: 2.8em !important;
 }
 

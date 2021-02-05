@@ -1,3 +1,14 @@
+/***
+ * SEN306 Group  7 Project.
+ * February 4th 2021
+ * - Emmanuel Segun-Lean
+ * - Maxwell Ogalabu
+ * - Shugaba Wuta
+ * - Judith Ogoh
+ * - Lloyd Ochukenyi
+ * School: American University of Nigeria.
+ * Instructor: Dr. Ignace Djitog
+ */
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -6,6 +17,11 @@ const app = express();
 const eta = require("eta");
 
 const net = require("net");
+
+process.on("unhandledRejection", (error, promise) => {
+  console.log(" Omo! We forgot to handle a promise rejection here: ", promise);
+  console.log(" The error was: ", error);
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -32,8 +48,8 @@ const PORT = process.env.PORT || 3000;
 
 const client = net.connect({ port: 5555 }, () => {
   //NOTE: use same port of server!
-  console.log("connected to server!");
-  send(client, "GET", "message");
+  console.log("connected to Java server!");
+  send(client, "GET", "say-hello");
 });
 
 client.setEncoding("utf8");
@@ -44,7 +60,7 @@ client.on("data", (data) => {
 });
 
 client.on("end", () => {
-  console.log("disconnected from java server");
+  console.log("disconnected from Java server");
 });
 
 client.on("error", (err) => {
@@ -175,6 +191,14 @@ app.get("/report", (req, res) => {
 });
 
 app.post("/luggage", (req, res) => {
+  if (
+    !req.body.flight ||
+    !req.body.weight ||
+    !req.body.owner ||
+    !req.body.bags
+  ) {
+    return res.redirect("check-in-luggage");
+  }
   // We stringify the form data
   const l = JSON.stringify(req.body);
 
@@ -200,6 +224,12 @@ app.get("/exit", (req, res) => {
 
 app.get("*", (req, res) => {
   res.send("Page does not exist!");
+});
+
+app.use((error, req, res, next) => {
+  return res
+    .status(400)
+    .send("Omo! There was an unknown error. Go back <a href='/'>home</a>");
 });
 
 app.listen(PORT, () => {

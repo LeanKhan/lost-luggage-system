@@ -5,7 +5,7 @@
   <p>Find a Luggage by using the Owner's surname</p>
 
   <form method="POST" action="/search">
-    <input type="text" name="query" placeholder="Owner's surname" />
+    <input type="text" name="query" placeholder="Owner's surname" required />
     <br />
     <button style="font-size: medium" class="blue-button" type="submit">
       Search

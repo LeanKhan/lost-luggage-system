@@ -1,10 +1,14 @@
+
 /***
- * SEN306 Group  7 Project. February 4th 2021
+ * SEN306 Group  7 Project. 
+ * February 4th 2021
  * - Emmanuel Segun-Lean
- * - Shugaba Wuta
- * - Lloyd Ochu
  * - Maxwell Ogalabu
- * - Judith
+ * - Shugaba Wuta
+ * - Judith Ogoh
+ * - Lloyd Ochukenyi
+ * School: American University of Nigeria.
+ * Instructor: Dr. Ignace Djitog
  */
 import java.io.*;
 import java.net.ServerSocket;
