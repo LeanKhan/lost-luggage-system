@@ -25,6 +25,8 @@ function send(client, method, message, data = "-") {
   client.write(createRequest(method, message, data));
 }
 
+const PORT = process.env.PORT || 3000;
+
 const client = net.connect({ port: 5555 }, () => {
   //NOTE: use same port of server!
   console.log("connected to server!");
@@ -108,8 +110,50 @@ app.get("/search", (req, res) => {
   res.render("search");
 });
 
+app.post("/search", (req, res) => {
+  send(client, "POST", "search-luggages", req.body.query);
+
+  client.once("data", (response) => {
+    const p = response.toString().replace("\r\n", "");
+
+    // shorthand for const status = Array[0]...
+    const [status, message, data] = p.split(" | ");
+
+    console.log(`Response from Java => ${status} ${message}`);
+
+    let parsed;
+
+    try {
+      parsed = JSON.parse(data);
+    } catch (err) {
+      console.log("Could not parse response :/");
+      parsed = data;
+    }
+
+    console.log(parsed);
+
+    res.render("search", { data: { luggage: parsed } });
+  });
+});
+
 app.get("/report", (req, res) => {
-  res.render("report");
+  send(client, "GET", "report");
+
+  client.once("data", (response) => {
+    const p = response.toString().replace("\r\n", "");
+
+    // shorthand for const status = Array[0]...
+    const [status, message, data] = p.split(" | ");
+
+    if (req.query.popout) {
+      res.send(`<div style="max-width: 100%">
+      <p style="white-space: pre-line">${data}</p>
+    </div>`);
+      return res.end;
+    }
+
+    return res.render("report", { report: data });
+  });
 });
 
 app.get("/person", (req, res) => {
@@ -177,6 +221,6 @@ app.post("/luggage", (req, res) => {
   });
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Node Server-Client started!");
+app.listen(PORT, () => {
+  console.log("Node Server-Client started! Listening on Port => ", PORT);
 });

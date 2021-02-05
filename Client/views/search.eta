@@ -2,5 +2,51 @@
 
 <div>
   <h5 class="text-center">Search</h5>
-  <p>...should let operator search for luggage</p>
+  <p>Find a Luggage by using the Owner's surname</p>
+
+  <form method="POST" action="/search">
+    <input type="text" name="query" placeholder="Owner's surname" />
+    <br />
+    <button class="button" type="submit">Search</button>
+  </form>
+
+  <% if (typeof data != 'undefined') { %> <% if (typeof data.luggage !=
+  'undefined' && data.luggage.weight) { %>
+  <p>Luggages count: 1</p>
+
+  <form>
+    <table id="table">
+      <tr>
+        <th>Color</th>
+        <th>No. of Bags</th>
+        <th>Weight</th>
+        <th>Owner</th>
+        <th>Actions</th>
+      </tr>
+      <tr>
+        <td><%= data.luggage.color %></td>
+        <td><%= data.luggage.bags %></td>
+        <td><%= data.luggage.weight %></td>
+        <td>
+          <%= data.luggage.owner.firstname %> <%= data.luggage.owner.lastname %>
+        </td>
+        <td>
+          <div id="table-action-button">
+            <label>
+              <input
+                type="checkbox"
+                name="luggage_id"
+                value="<%= data.luggage.id || 0 %>"
+                onchange="this.form.action='/checkout-luggage';this.form.method='post';this.form.submit()"
+              />
+              <span>Check out</span>
+            </label>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <% } else { %>
+  <p>No Luggages found!</p>
+  <% } %> <% } %>
 </div>
