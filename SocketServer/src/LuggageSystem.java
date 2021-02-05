@@ -26,15 +26,18 @@ public class LuggageSystem {
         return instance;
     }
 
+    /**
+     * Loads the JSON data in the data file and put it in the Luggages ArrayList.
+     */
     public void loadData() {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
 
-            File dataStore = new File("data.json");
+            File dataStore = new File("data/luggages.json");
             if (dataStore.exists()) {
 
-                System.out.println("File exists! successfully!");
+                System.out.println("File exists!");
 
                 System.out.println("File name: " + dataStore.getName());
                 System.out.println("Absolute path: " + dataStore.getAbsolutePath());
@@ -50,23 +53,6 @@ public class LuggageSystem {
                 System.out.println(lg.size());
 
             }
-            // } else {
-            // System.out.println("File already exists.");
-
-            // System.out.println("File name: " + dataStore.getName());
-            // System.out.println("Absolute path: " + dataStore.getAbsolutePath());
-            // System.out.println("Writeable: " + dataStore.canWrite());
-            // System.out.println("Readable " + dataStore.canRead());
-            // System.out.println("File size in bytes " + dataStore.length());
-
-            // ArrayList<Owner> lg = mapper.readValue(dataStore, new
-            // TypeReference<ArrayList<Owner>>() {
-            // });
-
-            // System.out.println(lg.size());
-
-            // lg.forEach(x -> System.out.println(x.getFirstname() + x.getLastname()));
-            // }
         } catch (
 
         IOException e) {
@@ -75,14 +61,17 @@ public class LuggageSystem {
         }
     }
 
+    /**
+     * Save ArrayList of Luggages as JSON into data JSON file.
+     */
     public void saveJsonData() {
 
         try {
 
             ObjectMapper mapper = new ObjectMapper();
 
-            File dataStore = new File("data.json");
-            FileWriter dataStoreWriter = new FileWriter("data.json");
+            File dataStore = new File("data/luggages.json");
+            FileWriter dataStoreWriter = new FileWriter("data/luggages.json");
 
             if (dataStore.createNewFile()) {
                 System.out.println("File created successfully!");
@@ -117,14 +106,19 @@ public class LuggageSystem {
             }
             ;
         } catch (IOException e) {
-            // TODO: handle exception
             System.out.println("Error saving JSON = >");
             e.printStackTrace();
         }
 
     }
 
-    public String getLuggageJSON(int index) {
+    /**
+     * Get Luggage JSON by Index
+     * 
+     * @param index
+     * @return JSON of found Luggage
+     */
+    public String getLuggageJSONbyIndex(int index) {
         ObjectMapper mapper = new ObjectMapper();
         if (LuggageSystem.luggages == null || LuggageSystem.luggages.size() == 0) {
             System.out.println("Luggages List is empty!");
@@ -157,12 +151,21 @@ public class LuggageSystem {
         }
     }
 
-    public Boolean addLuggage(String luggageJSON) {
+    /**
+     * Create a new Luggage and add it to Luggages List
+     * 
+     * @param luggageJSON
+     * @return true or false if the Check-in was successful
+     */
+    public Boolean checkinLuggage(String luggageJSON) {
         ObjectMapper mapper = new ObjectMapper();
         Boolean added = false;
+        int min_index = 1;
+        int max_index = 1000;
+
         try {
             Luggage l = mapper.readValue(luggageJSON, Luggage.class);
-            int index = LuggageSystem.luggages.size() + 1;
+            int index = (int) (Math.random() * (max_index - min_index + 1) + min_index);
 
             l.setId(index);
 
@@ -177,6 +180,12 @@ public class LuggageSystem {
         return added;
     }
 
+    /**
+     * Finds a Luggage by Luggage.id and removes it from ArrayList of Luggages
+     * 
+     * @param id
+     * @return true or false if it was checked out
+     */
     public Boolean checkoutLuggage(int id) {
 
         try {
@@ -187,15 +196,15 @@ public class LuggageSystem {
                 return false;
             }
 
-            if (id > LuggageSystem.luggages.size()) {
+            int index = this.findLuggageIndexById(id);
+
+            if (index == -1 || index > LuggageSystem.luggages.size()) {
                 System.out.println("Luggage does not exist!");
 
                 return false;
             }
 
-            id = id - 1;
-
-            Luggage l = LuggageSystem.luggages.remove(id);
+            Luggage l = LuggageSystem.luggages.remove(index);
 
             System.out.println("Luggage checked out successfully! => " + l.getId());
 
@@ -208,6 +217,11 @@ public class LuggageSystem {
         return true;
     }
 
+    /**
+     * Returns all the Luggages in the system as JSON
+     * 
+     * @return JSON of Luggaes ArrayList[]
+     */
     public String getLuggages() {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -227,7 +241,13 @@ public class LuggageSystem {
         }
     }
 
-    public int searchLuggages(String ownerlastname) {
+    /**
+     * Finds the Luggage in JSON format by the ownerlastname
+     * 
+     * @param ownerlastname - the lastname of the Owner
+     * @return JSON of found Luggage
+     */
+    public String findLuggageByOwnerlastname(String ownerlastname) {
 
         int index = -1;
         ownerlastname = ownerlastname.toLowerCase();
@@ -241,9 +261,37 @@ public class LuggageSystem {
             }
         }
 
+        return this.getLuggageJSONbyIndex(index);
+    }
+
+    /**
+     * Find Luggage Index by Luggage Id. Luggage Id is automatically generated on
+     * Check-in.
+     * 
+     * @param id
+     * @return index of Luggage in Array
+     */
+    private int findLuggageIndexById(int id) {
+
+        int index = -1;
+        // using classical for loop
+        for (int i = 0; i < LuggageSystem.luggages.size(); i++) {
+            Boolean found = LuggageSystem.luggages.get(i).getId() == id;
+
+            if (found) {
+                index = i;
+                break;
+            }
+        }
+
         return index;
     }
 
+    /**
+     * Count the number of Luggages in the System.
+     * 
+     * @return Int
+     */
     public int luggagesCount() {
 
         if (LuggageSystem.luggages == null) {
@@ -253,6 +301,11 @@ public class LuggageSystem {
         return LuggageSystem.luggages.size();
     }
 
+    /**
+     * Print the system state report
+     * 
+     * @return String
+     */
     public String printReport() {
 
         if (LuggageSystem.luggages == null || LuggageSystem.luggages.size() == 0) {

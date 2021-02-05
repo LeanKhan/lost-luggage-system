@@ -23,6 +23,14 @@ public class Server {
         System.out.println(message);
     }
 
+    /**
+     * Send stuff to Client
+     * 
+     * @param writer  PrintWriter
+     * @param status  SUCCESS or ERROR
+     * @param message the message like 'Luggage fetched successfully!'
+     * @param data    if there's any payload this is JSON of the requested data.
+     */
     public static void send(PrintWriter writer, String status, String message, String data) {
         writer.println(status + " | " + message + " | " + data);
     }
@@ -57,14 +65,12 @@ public class Server {
                 String line = null;
                 while ((line = br.readLine()) != null) {
                     log(line);
-                    // line += br.readLine();
-                    // log(line);
                     handleRequest(line, writer);
                 }
 
             } catch (IOException e) {
                 LuggageSystem.getLuggageSystem().saveJsonData();
-                System.out.println("Accept failed: 5555");
+                System.out.println("Accept failed: 5555; Client disconnected or something :/");
                 System.exit(-1);
             }
         }
@@ -72,17 +78,20 @@ public class Server {
 
     private static void handleRequest(String request, PrintWriter writer) {
         // Because "|" is a special character in .split() I have to use \\ to escape it.
-        // The frontend sends requests in this format => METHOD | ACTION/ENTITY sha more
-        // detail | PAYLOAD
+        // The Client sends requests in this format => ACTION | RESOURCE | PAYLOAD/QUERY
         String[] requestLines = request.split(" \\| ");
 
         String method = requestLines[0]; // e.g GET
         String resource = requestLines[1]; // e.g person
-        String query = requestLines[2]; // e.g or payload {name: 'Emmanuel'}
+        String query = "-";
 
-        log(method);
-        log(resource);
-        log(query);
+        if (requestLines.length > 2) {
+            query = requestLines[2]; // e.g or payload {name: 'Emmanuel'}
+        }
+
+        log("Action: " + method);
+        log("Resource: " + resource);
+        log("Payload/Query: " + query);
 
         if (method.equals("GET")) {
             if (resource.equals("say-hello")) {
@@ -113,13 +122,11 @@ public class Server {
         } else if (method.equals("POST")) {
             if (resource.equals("luggage")) {
                 log(query);
-                Boolean res = Server.luggageSystem.addLuggage(query);
+                Boolean res = Server.luggageSystem.checkinLuggage(query);
                 send(writer, "SUCCESS", "Luggage created sucessffully!", res.toString());
                 return;
             }
 
-            // TODO: you can add more methods!
-            // for example...
             if (resource.equals("checkout-luggage")) {
                 log(query);
 
@@ -140,11 +147,9 @@ public class Server {
             if (resource.equals("search-luggages")) {
                 log(query);
 
-                int luggageIndex;
                 String luggage;
                 try {
-                    luggageIndex = Server.luggageSystem.searchLuggages(query);
-                    luggage = Server.luggageSystem.getLuggageJSON(luggageIndex);
+                    luggage = Server.luggageSystem.findLuggageByOwnerlastname(query);
 
                     send(writer, "SUCCESS", "Luggage searched successfully!", luggage);
                     return;
@@ -158,7 +163,7 @@ public class Server {
             send(writer, "ERROR", "Unknown function!", "-");
             return;
         } else {
-            send(writer, "ERROR", "Method not supported!", "-");
+            send(writer, "ERROR", "Action/Method not supported!", "-");
             return;
         }
     }
@@ -166,5 +171,14 @@ public class Server {
     /* creating new server and call it's listen method */
     public static void main(String[] args) {
         new Server().listen();
+
+        // Add shutdown hook...
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                log("Gracefully shutting down and saving Luggage System Data :)");
+                LuggageSystem.getLuggageSystem().saveJsonData();
+            }
+        });
     }
 }
