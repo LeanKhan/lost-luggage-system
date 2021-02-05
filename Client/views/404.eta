@@ -1,0 +1,5 @@
+<% layout('./layouts/default.eta') %>
+
+<div>
+  <h5 class="text-center">Woops! That Page does not exist!</h5>
+</div>

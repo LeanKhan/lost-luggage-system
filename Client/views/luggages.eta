@@ -9,18 +9,18 @@
   data.luggages.length > 0 && data.count) { %>
   <p>Luggages count: <%= data.count %></p>
 
-  <form>
+  <form onsubmit="luggage_id.disabled = true; return true;">
     <table id="table">
       <tr>
-        <th>Color</th>
+        <th>Flight Code</th>
         <th>No. of Bags</th>
         <th>Weight</th>
         <th>Owner</th>
         <th>Actions</th>
       </tr>
-      <% data.luggages.forEach(luggage => { %>
+      <% data.luggages.forEach((luggage, i) => { %>
       <tr>
-        <td><%= luggage.color %></td>
+        <td><%= luggage.flight %></td>
         <td><%= luggage.bags %></td>
         <td><%= luggage.weight %></td>
         <td><%= luggage.owner.firstname %> <%= luggage.owner.lastname %></td>
@@ -30,10 +30,16 @@
               <input
                 type="checkbox"
                 name="luggage_id"
-                value="<%= luggage.id || 0 %>"
+                value="<%=luggage.id%>"
                 onchange="this.form.action='/checkout-luggage';this.form.method='post';this.form.submit()"
               />
-              <span>Check out</span>
+              <span
+                ><img
+                  src="https://icongr.am/material/briefcase-minus.svg?size=20&color=000000"
+                  alt="Checkout Luggage"
+                />
+                Check out</span
+              >
             </label>
           </div>
         </td>
