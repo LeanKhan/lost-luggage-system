@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.core.JsonGenerationException;
@@ -169,6 +170,8 @@ public class LuggageSystem {
             int index = (int) (Math.random() * (max_index - min_index + 1) + min_index);
 
             l.setId(index);
+
+            l.setDateAdded(LocalDateTime.now().toString());
 
             System.out.println("Luggage added successfully! => ");
 

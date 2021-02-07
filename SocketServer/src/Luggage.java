@@ -3,6 +3,7 @@ public class Luggage {
     private String flight;
     private String weight;
     private int bags;
+    private String date_added;
     private Owner owner;
 
     Luggage() {
@@ -40,6 +41,14 @@ public class Luggage {
         return bags;
     }
 
+    public void setDateAdded(String dateAdded) {
+        this.date_added = dateAdded;
+    }
+
+    public String getDate_added() {
+        return date_added;
+    }
+
     public void setOwner(Owner owner) {
         this.owner = owner;
     }
@@ -61,6 +70,8 @@ public class Luggage {
         sb.append("Weight: " + getWeight() + "\n");
 
         sb.append("Number of Bags: " + getBags() + "\n");
+
+        sb.append("Date Added: " + getDate_added() + "\n");
 
         sb.append("Owner: " + getOwner() + "\n");
 
