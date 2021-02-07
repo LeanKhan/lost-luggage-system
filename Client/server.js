@@ -12,7 +12,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const {open} = require("out-url");
+const { open } = require("out-url");
 
 const app = express();
 const eta = require("eta");
@@ -75,6 +75,7 @@ app.get("/", (req, res) => {
 
 app.get("/luggages", (req, res) => {
   res.locals.route = "luggages";
+  req.locals.title = "All Luggages";
 
   send(client, "GET", "luggages");
 
@@ -101,12 +102,9 @@ app.get("/luggages", (req, res) => {
 
 app.get("/check-in-luggage", (req, res) => {
   res.locals.route = "check-in";
+  req.locals.title = "Check-in Luggage";
 
   res.render("check-in-luggage");
-});
-
-app.post("/poster", (req, res) => {
-  return res.status(200).send(req.body);
 });
 
 app.post("/checkout-luggage", (req, res) => {
@@ -137,12 +135,14 @@ app.post("/checkout-luggage", (req, res) => {
 
 app.get("/search", (req, res) => {
   res.locals.route = "search";
+  res.locals.title = "Search Luggages";
 
   res.render("search");
 });
 
 app.post("/search", (req, res) => {
   res.locals.route = "search";
+  res.locals.title = `Search Results for: ${req.body.query}`;
 
   if (!req.body.query) {
     return res.redirect("/search");
@@ -175,6 +175,7 @@ app.post("/search", (req, res) => {
 
 app.get("/report", (req, res) => {
   res.locals.route = "report";
+  res.locals.title = `LLS Report for ${new Date().toDateString()} ${new Date().toLocaleTimeString()}`;
 
   send(client, "GET", "report");
 
@@ -235,7 +236,13 @@ app.use((error, req, res, next) => {
   console.log(error);
   return res
     .status(400)
-    .send("Omo! There was an unknown error. Go back <a href='/'>home</a> \n <br/>" + error.getMessage());
+    .send(
+      "Omo! There was an unknown error. Go back <a href='/'>home</a> \n <br/>" +
+        typeof error.getMessage ===
+        "function"
+        ? error.getMessage()
+        : error
+    );
 });
 
 app.listen(PORT, () => {

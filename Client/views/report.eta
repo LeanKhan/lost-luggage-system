@@ -17,7 +17,7 @@
       <button
         type="button"
         class="blue-button"
-        onclick="printJS({ printable: 'report', type: 'html', header: `Left Luggage System Report for ${new Date().toLocaleString()}` })"
+        onclick="printJS({ printable: 'report', type: 'html', header: `Left Luggage System Report for ${new Date().toDateString()} ${new Date().toLocaleTimeString()}` })"
       >
         Print PDF
       </button>
