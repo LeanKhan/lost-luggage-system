@@ -75,7 +75,7 @@ app.get("/", (req, res) => {
 
 app.get("/luggages", (req, res) => {
   res.locals.route = "luggages";
-  req.locals.title = "All Luggages";
+  res.locals.title = "All Luggages";
 
   send(client, "GET", "luggages");
 
@@ -102,7 +102,7 @@ app.get("/luggages", (req, res) => {
 
 app.get("/check-in-luggage", (req, res) => {
   res.locals.route = "check-in";
-  req.locals.title = "Check-in Luggage";
+  res.locals.title = "Check-in Luggage";
 
   res.render("check-in-luggage");
 });

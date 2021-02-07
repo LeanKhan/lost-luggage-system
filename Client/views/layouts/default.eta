@@ -15,10 +15,12 @@
         <div class="col-3"></div>
         <div class="col">
           <h4 class="text-center">
-            <a class="brand is-center" style="display: inline-flex">
+            <a
+              class="brand is-center text-dark text-uppercase"
+              style="display: inline-flex"
+            >
               <img
-                src="https://icongr.am/material/bag-checked.svg?size=40&color=currentColor
-            alt="
+                src="https://icongr.am/material/bag-checked.svg?size=40&color=19a187"
               />
               Left Luggage System
             </a>
