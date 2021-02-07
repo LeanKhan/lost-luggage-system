@@ -4,7 +4,7 @@
 <% } %>
 
 <div>
-  <h5 class="text-center">Lost Luggages</h5>
+  <h5 class="text-center">Left Luggages</h5>
   <% if (typeof data != 'undefined') { %> <% if (data.luggages &&
   data.luggages.length > 0 && data.count) { %>
   <p>Luggages count: <%= data.count %></p>

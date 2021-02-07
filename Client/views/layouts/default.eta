@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lost Luggage System 1000</title>
+    <title>Left Luggage System 1000</title>
     <link rel="stylesheet" href="/css/skeuos.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/chota@latest" />
     <link rel="stylesheet" href="/css/styles.css" />
@@ -18,7 +18,7 @@
                 src="https://icongr.am/material/bag-checked.svg?size=40&color=currentColor
             alt="
               />
-              Lost Luggage System
+              Left Luggage System
             </a>
 
             <a href="/exit">

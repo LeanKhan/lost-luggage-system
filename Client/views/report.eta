@@ -13,10 +13,29 @@
         >View in another window
         <img src="https://icongr.am/clarity/pop-out.svg?size=16&color=14854f"
       /></a>
+
+      <button
+        type="button"
+        class="blue-button"
+        onclick="printJS({ printable: 'report', type: 'html', header: `Left Luggage System Report for ${new Date().toLocaleString()}` })"
+      >
+        Print PDF
+      </button>
     </span>
   </div>
   <div class="bg-dark bd-primary text-light card" style="max-width: 100%">
-    <p style="white-space: pre-line"><%= report %></p>
+    <p style="white-space: pre-line" id="report"><%= report %></p>
   </div>
   <% } %>
 </div>
+
+<script>
+  // From https://stackoverflow.com/a/65952693/10382407
+  let printjs = document.createElement("script");
+  printjs.src = "https://printjs-4de6.kxcdn.com/print.min.js";
+  document.body.appendChild(printjs);
+
+  printjs.onload = function () {
+    console.log("PrintJS loaded! Thank you Jesus!");
+  };
+</script>
