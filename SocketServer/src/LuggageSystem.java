@@ -315,7 +315,7 @@ public class LuggageSystem {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("\n |----- Lost Luggage System -----|\n");
+        sb.append("\n |----- Left Luggage System -----|\n");
         sb.append("|----- Luggages  -----|\n");
 
         for (int i = 0; i < LuggageSystem.luggages.size(); i++) {
