@@ -2,3 +2,5 @@ node_modules
 /Client/node_modules
 .vscode
 /SocketServer/data
+/SocketServer/.vscode 
+/Client/.vscode 
