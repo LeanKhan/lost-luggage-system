@@ -41,7 +41,7 @@
         <td>
           <%= data.luggage.owner.firstname %> <%= data.luggage.owner.lastname %>
         </td>
-        <td><%= luggage.date_added %></td>
+        <td><%= data.luggage.date_added %></td>
         <td>
           <div id="table-action-button">
             <label>
